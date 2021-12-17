@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:retip/pages/registration/verification_page.dart';
 import 'package:retip/utils/app_colors.dart';
 import 'package:retip/widgets/rounded_button.dart';
+import 'package:retip/widgets/rounded_text_field.dart';
 
 class SignInPage extends StatefulWidget {
   final bool isSignUp;
@@ -37,31 +38,17 @@ class _SignInPageState extends State<SignInPage> {
                 child: Image.asset("assets/retip_logo_white.png"),
               ),
               SizedBox(height: 64),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Enter your number",
-                  filled: true,
-                  fillColor: AppColors.primaryLight,
-                  isDense: true,
-                  contentPadding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(style: BorderStyle.none),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(style: BorderStyle.none),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(style: BorderStyle.none),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
+              if (widget.isSignUp)
+                RoundedTextField(
+                  hint: "Enter your name",
+                  color: AppColors.primaryLight,
+                  textColor: AppColors.accent,
                 ),
-                style: TextStyle(
-                  color: AppColors.accent,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
+              if (widget.isSignUp) SizedBox(height: 24),
+              RoundedTextField(
+                hint: "Enter your number",
+                color: AppColors.primaryLight,
+                textColor: AppColors.accent,
               ),
               SizedBox(height: 24),
               RoundedButton(text: "Next", onPressed: signUp),

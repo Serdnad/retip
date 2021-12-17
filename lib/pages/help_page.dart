@@ -46,24 +46,8 @@ class _HelpPageState extends State<HelpPage> {
                 SizedBox(height: 16),
                 Container(height: 1, color: AppColors.accentLight),
                 SizedBox(height: 16),
-                TextField(
-                  style: TextStyle(color: Colors.white),
-                  maxLines: 6,
-                  cursorColor: Colors.white,
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: InputDecoration(
-                    hintText: "Type in support email...",
-                    filled: true,
-                    fillColor: AppColors.accentLight,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: AppColors.accentLight),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide(color: AppColors.primary),
-                    ),
-                  ),
+                BigRoundedTextField(
+                  hint: "Type in support email...",
                 ),
                 SizedBox(height: 16),
                 RoundedButton(
@@ -79,6 +63,41 @@ class _HelpPageState extends State<HelpPage> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class BigRoundedTextField extends StatelessWidget {
+  final String? hint;
+  final TextEditingController? controller;
+
+  const BigRoundedTextField({
+    Key? key,
+    this.controller,
+    this.hint,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: controller,
+      style: TextStyle(color: Colors.white),
+      maxLines: 6,
+      cursorColor: Colors.white,
+      textCapitalization: TextCapitalization.sentences,
+      decoration: InputDecoration(
+        hintText: hint,
+        filled: true,
+        fillColor: AppColors.accentLight,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: AppColors.accentLight),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: AppColors.primary),
         ),
       ),
     );

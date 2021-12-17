@@ -73,7 +73,14 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: [
                 RoundedButton(
-                  child: Icon(Icons.person),
+                  child: SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: Transform.translate(
+                      offset: Offset(-10, -10),
+                      child: Icon(Icons.apps, size: 40),
+                    ),
+                  ),
                   color: AppColors.accentLight,
                   onPressed: () => Navigator.push(
                       context,

@@ -4,6 +4,7 @@ import 'package:retip/models/restaurant.dart';
 import 'package:retip/models/review.dart';
 import 'package:retip/utils/app_colors.dart';
 import 'package:retip/utils/app_text_styles.dart';
+import 'package:retip/widgets/common/review_item.dart';
 import 'package:retip/widgets/common/star_rating.dart';
 import 'package:retip/widgets/header/close_icon_button.dart';
 import 'package:retip/widgets/rounded_button.dart';
@@ -126,31 +127,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                         final review = Review.random();
 
                         // TODO: ONLY DO REVIEWS WITH COMMENTS
-
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.accentLight,
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                          ),
-                          padding: EdgeInsets.all(16),
-                          margin: EdgeInsets.only(bottom: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  StarRating(rating: review.stars, emptyColor: Colors.white54),
-                                ],
-                              ),
-                              SizedBox(height: 12),
-                              Text(
-                                review.comment!,
-                                style: TextStyle(color: AppColors.accentDark, fontSize: 18),
-                              )
-                            ],
-                          ),
-                        );
+                        return ReviewItem(review: review);
                       },
                     ),
                   )

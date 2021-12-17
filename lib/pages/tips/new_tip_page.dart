@@ -1,10 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:retip/models/review.dart';
+import 'package:retip/pages/home_page.dart';
+import 'package:retip/pages/tips/new_review_page.dart';
 import 'package:retip/utils/app_colors.dart';
 import 'package:retip/utils/app_text_styles.dart';
+import 'package:retip/widgets/common/review_item.dart';
 import 'package:retip/widgets/header/close_icon_button.dart';
 import 'package:retip/widgets/rounded_button.dart';
+import 'package:retip/widgets/rounded_text_field.dart';
 import 'package:retip/widgets/tips/radio_button_group.dart';
+import 'package:retip/widgets/tips/selected_payment_row.dart';
 
 class NewTipPage extends StatefulWidget {
   @override
@@ -12,6 +18,41 @@ class NewTipPage extends StatefulWidget {
 }
 
 class _NewTipPageState extends State<NewTipPage> {
+  int? selectedTipAmount;
+  TextEditingController tipController = TextEditingController();
+
+  Review? review;
+
+  @override
+  void initState() {
+    // review = Review(stars: 0, date: DateTime.now());
+
+    super.initState();
+  }
+
+  Future<void> editReview() async {
+    review = await Navigator.push(
+      context,
+      CupertinoPageRoute(builder: (_) => NewReviewPage(review: review)),
+    );
+
+    setState(() {});
+  }
+
+  void selectTip(String selection) {
+    String percent = selection.substring(0, 2);
+    setState(() {
+      selectedTipAmount = int.parse(percent);
+      tipController.text = '\$${(25.45 * (selectedTipAmount! / 100))}';
+    });
+  }
+
+  void submit() {
+    // TODO: submit
+
+    Navigator.push(context, CupertinoPageRoute(builder: (_) => HomePage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
@@ -68,18 +109,28 @@ class _NewTipPageState extends State<NewTipPage> {
                   SizedBox(height: 16),
                   RadioButtonGroup(
                     items: ['15%', '20%', '25%'],
-                    onSelected: (item) {},
+                    onSelected: selectTip,
                   ),
                   SizedBox(height: 16),
-                  Text("CUSTOM"),
+                  RoundedTextField(
+                    color: AppColors.accentLight,
+                    hint: "Tip Amount",
+                    controller: tipController,
+                  ),
                   SizedBox(height: 24),
                   Text("Rating (optional)", style: AppTextStyles.sectionHeader),
+                  SizedBox(height: 16),
+                  ReviewItem(review: review, onTap: editReview),
+                  //    final mediaQueryData = MediaQuery.of(context);
+
                   Spacer(),
+                  SelectedPaymentRow(),
+                  SizedBox(height: 16),
                   RoundedButton(
                     text: "Submit",
                     textColor: Colors.white,
-                    color: AppColors.accentLight, // TODO: CHANGE
-                    onPressed: () {},
+                    color: selectedTipAmount == null ? AppColors.accentLight : AppColors.accent,
+                    onPressed: submit,
                   )
                 ],
               ),
